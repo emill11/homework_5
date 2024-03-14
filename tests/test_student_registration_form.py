@@ -3,7 +3,7 @@ from selene.support.shared import browser
 from selene import have
 from selene import command
 import os
-
+import tests
 
 def test_student_registration_form():
 
@@ -31,7 +31,7 @@ def test_student_registration_form():
     browser.element('label[for="hobbies-checkbox-1"]').perform(command.js.scroll_into_view).click()
 
     browser.element('label[for="uploadPicture"]').click()
-    import tests
+
     (browser.element('#uploadPicture').set_value(
         os.path.abspath(
         os.path.join(os.path.dirname(tests.__file__), 'resources/photo.jpg')
