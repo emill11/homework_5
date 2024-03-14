@@ -12,10 +12,12 @@ def test_student_registration_form():
     browser.open('/automation-practice-form')
 
     #WHEN
-    browser.element('#firstName').type('Ivan')
+    browser.element('#firstName').perform(command.js.scroll_into_view).type('Ivan')
     browser.element('#lastName').type('Ivanov')
     browser.element('#userEmail').type('test@test.test')
+
     browser.all('[name=gender]').element_by(have.value('Male')).element('..').click()
+
     browser.element('#userNumber').type('1234567890')
 
     browser.element('#dateOfBirthInput').click()
