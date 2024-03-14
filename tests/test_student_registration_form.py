@@ -5,13 +5,13 @@ from selene import command
 import os
 import tests
 
-def test_student_registration_form():
 
+def test_student_registration_form():
     browser.config.window_width = 1000
     browser.config.window_height = 2000
     browser.open('/automation-practice-form')
 
-    #WHEN
+    # WHEN
     browser.element('#firstName').perform(command.js.scroll_into_view).type('Ivan')
     browser.element('#lastName').type('Ivanov')
     browser.element('#userEmail').type('test@test.test')
@@ -32,10 +32,8 @@ def test_student_registration_form():
 
     browser.element('label[for="uploadPicture"]').click()
 
-    (browser.element('#uploadPicture').set_value(
-        os.path.abspath(
-        os.path.join(os.path.dirname(tests.__file__), 'resources/photo.jpg')
-    )))
+    browser.element('#uploadPicture').set_value(
+        os.path.abspath(os.path.join(os.path.dirname(tests.__file__), 'resources/photo.jpg')))
 
     browser.element('#currentAddress').type('Street 123')
     browser.element('#react-select-3-input').type('NC').press_enter()
@@ -43,26 +41,16 @@ def test_student_registration_form():
 
     browser.element('#submit').press_enter()
 
-   #THEN
+    # THEN
     browser.element('.table').all('td').even.should(
         have.texts(
-    'Ivan Ivanov',
-    'test@test.test',
-    'Male',
-    '1234567890',
-    '03 April,2000',
-    'Maths',
-    'Sports',
-    'photo.jpg',
-    'Street 123',
-    'NCR Delhi'))
-
-
-
-
-
-
-
-
-
-
+            'Ivan Ivanov',
+            'test@test.test',
+            'Male',
+            '1234567890',
+            '03 April,2000',
+            'Maths',
+            'Sports',
+            'photo.jpg',
+            'Street 123',
+            'NCR Delhi'))
