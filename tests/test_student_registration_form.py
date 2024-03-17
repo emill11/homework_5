@@ -1,56 +1,40 @@
-import pytest
-from selene.support.shared import browser
-from selene import have
-from selene import command
-import os
-import tests
+from homeworke_5.pages.registration_page import RegistrationPage
 
 
 def test_student_registration_form():
-    browser.config.window_width = 1000
-    browser.config.window_height = 2000
-    browser.open('/automation-practice-form')
+    registration_page = RegistrationPage()
+
+    registration_page.open()
 
     # WHEN
-    browser.element('#firstName').perform(command.js.scroll_into_view).type('Ivan')
-    browser.element('#lastName').type('Ivanov')
-    browser.element('#userEmail').type('test@test.test')
 
-    browser.all('[name=gender]').element_by(have.value('Male')).element('..').click()
+    registration_page.fill_first_name('Ivan')
+    registration_page.fill_last_name('Ivanov')
 
-    browser.element('#userNumber').type('1234567890')
+    registration_page.fill_email('test@test.test')
 
-    browser.element('#dateOfBirthInput').click()
-    browser.element('.react-datepicker__year-select').click()
-    browser.element('option[value="2000"]').click()
-    browser.element('.react-datepicker__month-select').click()
-    browser.element('option[value="3"]').click()
-    browser.element('div[aria-label="Choose Monday, April 3rd, 2000"]').click()
-
-    browser.element('#subjectsInput').type('ma').press_enter()
-    browser.element('label[for="hobbies-checkbox-1"]').perform(command.js.scroll_into_view).click()
-
-    browser.element('label[for="uploadPicture"]').click()
-
-    browser.element('#uploadPicture').set_value(
-        os.path.abspath(os.path.join(os.path.dirname(tests.__file__), 'resources/photo.jpg')))
-
-    browser.element('#currentAddress').type('Street 123')
-    browser.element('#react-select-3-input').type('NC').press_enter()
-    browser.element('#react-select-4-input').type('De').press_enter()
-
-    browser.element('#submit').press_enter()
+    registration_page.fill_gender()
+    registration_page.fill_number('1234567890')
+    registration_page.fill_date()
+    registration_page.fill_subjects('ma')
+    registration_page.fill_hobbies()
+    registration_page.upload_photo('photo.jpg')
+    registration_page.current_address('Street 123')
+    registration_page.fill_state('NC')
+    registration_page.fill_city('De')
+    registration_page.fill_submit()
 
     # THEN
-    browser.element('.table').all('td').even.should(
-        have.texts(
-            'Ivan Ivanov',
-            'test@test.test',
-            'Male',
-            '1234567890',
-            '03 April,2000',
-            'Maths',
-            'Sports',
-            'photo.jpg',
-            'Street 123',
-            'NCR Delhi'))
+    registration_page.should_registered_user_with(
+        'Ivan Ivanov',
+        'test@test.test',
+        'Male',
+        '1234567890',
+        '03 April,2000',
+        'Maths',
+        'Sports',
+        'photo.jpg',
+        'Street 123',
+        'NCR Delhi')
+
+    registration_page.close_submiting_form()

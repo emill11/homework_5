@@ -1,10 +1,11 @@
 import pytest
 from selene.support.shared import browser
 
+
 @pytest.fixture(scope="function", autouse=True)
 def open_browser():
-     browser.config.base_url='https://demoqa.com'
+    browser.config.base_url = 'https://demoqa.com'
 
-     yield
+    yield
 
-     browser.quit()
+    browser.quit()
