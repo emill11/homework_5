@@ -1,7 +1,5 @@
-from selene import command, have
-from selene.support.shared import browser
-
-from homeworke_5 import resources
+from selene import browser, command, have
+from models import resources
 
 
 class RegistrationPage:
@@ -25,7 +23,7 @@ class RegistrationPage:
 
         self.upload = browser.element('#uploadPicture')
 
-        self.addres = browser.element('#currentAddress')
+        self.address = browser.element('#currentAddress')
         self.state = browser.element('#react-select-3-input')
         self.city = browser.element('#react-select-4-input')
 
@@ -34,8 +32,6 @@ class RegistrationPage:
         self.element = browser.element('.table').all('td')
 
     def open(self):
-        browser.config.window_width = 1000
-        browser.config.window_height = 2000
         browser.open('/automation-practice-form')
 
     def fill_first_name(self, value):
@@ -73,7 +69,7 @@ class RegistrationPage:
         self.upload.set_value(resources.path(value))
 
     def current_address(self, value):
-        self.addres.type(value)
+        self.address.type(value)
 
     def fill_state(self, value):
         self.state.type(value).press_enter()
@@ -84,30 +80,36 @@ class RegistrationPage:
     def button_submit(self):
         self.submit.press_enter()
 
-    def should_registered_user_with(
-            self,
-            first_name,
-            email,
-            gender,
-            number,
-            date,
-            subjects,
-            hobbies,
-            photo,
-            addres,
-            city
-    ):
+    def register(self, user):
+        self.fill_first_name(user.first_name)
+        self.fill_last_name(user.last_name)
+
+        self.fill_email(user.email)
+
+        self.fill_gender()
+        self.fill_number(user.number)
+        self.fill_date()
+        self.fill_subjects(user.subjects)
+        self.fill_hobbies()
+        self.upload_photo(user.photo)
+        self.current_address(user.current_address)
+        self.fill_state(user.state)
+        self.fill_city(user.city)
+
+        self.button_submit()
+
+    def should_registered_user_with(self, user):
         self.element.even.should(
             have.texts(
-                first_name,
-                email,
-                gender,
-                number,
-                date,
-                subjects,
-                hobbies,
-                photo,
-                addres,
-                city
+                user.first_name,
+                user.email,
+                user.gender,
+                user.number,
+                user.date,
+                user.subjects,
+                user.hobbies,
+                user.photo,
+                user.current_address,
+                user.city
             )
         )
