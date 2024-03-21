@@ -11,3 +11,4 @@ def open_browser():
     yield
 
     browser.quit()
+

@@ -37,3 +37,4 @@ def test_student_registration_form():
         'NCR Delhi')
 
     registration_page.close_submiting_form()
+

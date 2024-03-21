@@ -82,3 +82,4 @@ class RegistrationPage:
 
     def close_submiting_form(self):
         browser.element("#closeLargeModal").double_click()
+
