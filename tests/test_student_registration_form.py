@@ -1,13 +1,12 @@
 from homeworke_5.pages.registration_page import RegistrationPage
 
+registration_page = RegistrationPage()
+
 
 def test_student_registration_form():
-    registration_page = RegistrationPage()
-
     registration_page.open()
 
     # WHEN
-
     registration_page.fill_first_name('Ivan')
     registration_page.fill_last_name('Ivanov')
 

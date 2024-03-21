@@ -1,14 +1,10 @@
-from selene import command, have
-from selene.support.shared import browser
-
+from selene import command, have, browser
 from homeworke_5 import resources
 
 
 class RegistrationPage:
 
     def open(self):
-        browser.config.window_width = 1000
-        browser.config.window_height = 2000
         browser.open('/automation-practice-form')
 
     def fill_first_name(self, value):
@@ -66,7 +62,7 @@ class RegistrationPage:
             subjects,
             hobbies,
             photo,
-            addres,
+            address,
             city
     ):
         browser.element('.table').all('td').even.should(
@@ -79,7 +75,7 @@ class RegistrationPage:
                 subjects,
                 hobbies,
                 photo,
-                addres,
+                address,
                 city
             )
         )
