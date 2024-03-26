@@ -2,7 +2,7 @@ import pytest
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selene import  browser
+from selene import browser
 
 
 #from utils import attach
@@ -33,3 +33,4 @@ def setup_browser(request):
     # attach.add_video(browser)
 
     browser.quit()
+
