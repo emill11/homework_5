@@ -1,39 +1,39 @@
-from selene import browser, command, have
+# from selene import browser, command, have
+from selene import command, have
 from models import resources
 
 
 class RegistrationPage:
 
-    def __init__(self):
+    def __init__(self, browser):
         self.browser = browser
-        self.first_name = browser.element('#firstName')
-        self.last_name = browser.element('#lastName')
-        self.email = browser.element('#userEmail')
-        self.gender = browser.all('[name=gender]').element_by(have.value('Male')).element('..')
-        self.number = browser.element('#userNumber')
+        self.first_name = self.browser.element('#firstName')
+        self.last_name = self.browser.element('#lastName')
+        self.email = self.browser.element('#userEmail')
+        self.gender = self.browser.all('[name=gender]').element_by(have.value('Male')).element('..')
+        self.number = self.browser.element('#userNumber')
 
-        self.date_of_birth_input = browser.element('#dateOfBirthInput')
-        self.year_drop_down = browser.element('.react-datepicker__year-select')
-        self.year = browser.element('option[value="2000"]')
-        self.month_drop_down = browser.element('.react-datepicker__month-select')
-        self.month = browser.element('option[value="3"]')
-        self.day = browser.element('div[aria-label="Choose Monday, April 3rd, 2000"]')
+        self.date_of_birth_input = self.browser.element('#dateOfBirthInput')
+        self.year_drop_down = self.browser.element('.react-datepicker__year-select')
+        self.year = self.browser.element('option[value="2000"]')
+        self.month_drop_down = self.browser.element('.react-datepicker__month-select')
+        self.month = self.browser.element('option[value="3"]')
+        self.day = self.browser.element('div[aria-label="Choose Monday, April 3rd, 2000"]')
 
-        self.subjects_input = browser.element('#subjectsInput')
-        self.hobbies = browser.element('label[for="hobbies-checkbox-1"]')
+        self.subjects_input = self.browser.element('#subjectsInput')
+        self.hobbies = self.browser.element('label[for="hobbies-checkbox-1"]')
 
-        self.upload = browser.element('#uploadPicture')
+        self.upload = self.browser.element('#uploadPicture')
 
-        self.address = browser.element('#currentAddress')
-        self.state = browser.element('#react-select-3-input')
-        self.city = browser.element('#react-select-4-input')
+        self.address = self.browser.element('#currentAddress')
+        self.state = self.browser.element('#react-select-3-input')
+        self.city = self.browser.element('#react-select-4-input')
 
-        self.submit = browser.element('#submit')
+        self.submit = self.browser.element('#submit')
 
-        self.element = browser.element('.table').all('td')
+        self.element = self.browser.element('.table').all('td')
 
-    def open(self, setup_browser):
-        self.browser = setup_browser
+    def open(self):
         self.browser.open('/automation-practice-form')
 
     def fill_first_name(self, value):
