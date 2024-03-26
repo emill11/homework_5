@@ -5,6 +5,7 @@ from models import resources
 class RegistrationPage:
 
     def __init__(self):
+        self.browser = browser
         self.first_name = browser.element('#firstName')
         self.last_name = browser.element('#lastName')
         self.email = browser.element('#userEmail')
@@ -31,8 +32,9 @@ class RegistrationPage:
 
         self.element = browser.element('.table').all('td')
 
-    def open(self):
-        browser.open('/automation-practice-form')
+    def open(self, setup_browser):
+        self.browser = setup_browser
+        self.browser.open('/automation-practice-form')
 
     def fill_first_name(self, value):
         self.first_name.perform(command.js.scroll_into_view).type(value)
