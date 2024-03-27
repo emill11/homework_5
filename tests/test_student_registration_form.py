@@ -3,7 +3,6 @@ import os
 import tests
 import allure
 
-
 @allure.title("Successful fill form")
 def test_student_registration_form():
     with allure.step("Open registrations form"):
