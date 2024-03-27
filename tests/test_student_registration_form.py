@@ -7,9 +7,7 @@ import tests
 
 
 def test_student_registration_form():
-    browser.config.window_width = 1000
-    browser.config.window_height = 2000
-    browser.open('/automation-practice-form')
+    browser.open('https://demoqa.com/automation-practice-form')
 
     # WHEN
     browser.element('#firstName').perform(command.js.scroll_into_view).type('Ivan')
