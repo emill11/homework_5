@@ -1,4 +1,4 @@
-allure-pytest==2.9.45
+allure-pytest
 pytest==8.0.2
 selene==2.0.0rc9
 
