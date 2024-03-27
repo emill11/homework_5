@@ -1,41 +1,51 @@
-import allure
-from selene import have, by
+from selene import browser, have, command
+import os
+import tests
 
 
-@allure.title("Successful fill form")
-def test_successful(setup_browser):
-    browser = setup_browser
-    first_name = "Alex"
-    last_name = "Egorov"
+def test_student_registration_form():
+    browser.open('https://demoqa.com/automation-practice-form')
 
-    with allure.step("Open registrations form"):
-        browser.open("https://demoqa.com/automation-practice-form")
-        browser.element(".practice-form-wrapper").should(have.text("Student Registration Form"))
-        browser.driver.execute_script("$('footer').remove()")
-        browser.driver.execute_script("$('#fixedban').remove()")
+    # WHEN
+    browser.element('#firstName').perform(command.js.scroll_into_view).type('Ivan')
+    browser.element('#lastName').type('Ivanov')
+    browser.element('#userEmail').type('test@test.test')
 
-    with allure.step("Fill form"):
-        browser.element("#firstName").set_value(first_name)
-        browser.element("#lastName").set_value(last_name)
-        browser.element("#userEmail").set_value("alex@egorov.com")
-        browser.element("#genterWrapper").element(by.text("Other")).click()
-        browser.element("#userNumber").set_value("1231231230")
-        # browser.element("#dateOfBirthInput").click()
-        # browser.element(".react-datepicker__month-select").s("July")
-        # browser.element(".react-datepicker__year-select").selectOption("2008")
-        # browser.element(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click()
-        browser.element("#subjectsInput").send_keys("Maths")
-        browser.element("#subjectsInput").press_enter()
-        browser.element("#hobbiesWrapper").element(by.text("Sports")).click()
-        # browser.element("#uploadPicture").uploadFromClasspath("img/1.png")
-        browser.element("#currentAddress").set_value("Some street 1")
-        browser.element("#state").click()
-        browser.element("#stateCity-wrapper").element(by.text("NCR")).click()
-        browser.element("#city").click()
-        browser.element("#stateCity-wrapper").element(by.text("Delhi")).click()
-        browser.element("#submit").click()
+    browser.all('[name=gender]').element_by(have.value('Male')).element('..').click()
 
-    with allure.step("Check form results"):
-        browser.element("#example-modal-sizes-title-lg").should(have.text("Thanks for submitting the form"))
-        # browser.element(".table-responsive").should(
-        #     have.texts(first_name, last_name, "alex@egorov.com", "Some street 1"))
+    browser.element('#userNumber').type('1234567890')
+
+    browser.element('#dateOfBirthInput').click()
+    browser.element('.react-datepicker__year-select').click()
+    browser.element('option[value="2000"]').click()
+    browser.element('.react-datepicker__month-select').click()
+    browser.element('option[value="3"]').click()
+    browser.element('div[aria-label="Choose Monday, April 3rd, 2000"]').click()
+
+    browser.element('#subjectsInput').type('ma').press_enter()
+    browser.element('label[for="hobbies-checkbox-1"]').perform(command.js.scroll_into_view).click()
+
+    browser.element('label[for="uploadPicture"]').click()
+
+    browser.element('#uploadPicture').set_value(
+        os.path.abspath(os.path.join(os.path.dirname(tests.__file__), 'resources/photo.jpg')))
+
+    browser.element('#currentAddress').type('Street 123')
+    browser.element('#react-select-3-input').type('NC').press_enter()
+    browser.element('#react-select-4-input').type('De').press_enter()
+
+    browser.element('#submit').press_enter()
+
+    # THEN
+    browser.element('.table').all('td').even.should(
+        have.texts(
+            'Ivan Ivanov',
+            'test@test.test',
+            'Male',
+            '1234567890',
+            '03 April,2000',
+            'Maths',
+            'Sports',
+            'photo.jpg',
+            'Street 123',
+            'NCR Delhi'))
