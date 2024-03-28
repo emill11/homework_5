@@ -32,88 +32,100 @@ class RegistrationPage:
 
         self.element = browser.element('.table').all('td')
 
-    with allure.step("Open registrations form"):
-        def open(self):
-            browser.open('https://demoqa.com/automation-practice-form')
+    @allure.step("Open registrations form")
+    def open(self):
+        browser.open('https://demoqa.com/automation-practice-form')
 
-    with allure.step("Fill form"):
-        def fill_first_name(self, value):
-            self.first_name.perform(command.js.scroll_into_view).type(value)
+    @allure.step("fill_first_name")
+    def fill_first_name(self, value):
+        self.first_name.perform(command.js.scroll_into_view).type(value)
 
-        def fill_last_name(self, value):
-            self.last_name.type(value)
+    @allure.step("fill_last_name")
+    def fill_last_name(self, value):
+        self.last_name.type(value)
 
-        def fill_email(self, value):
-            self.email.type(value)
+    @allure.step("fill_email")
+    def fill_email(self, value):
+        self.email.type(value)
 
-        def fill_gender(self):
-            self.gender.click()
+    @allure.step("fill_gender")
+    def fill_gender(self):
+        self.gender.click()
 
-        def fill_number(self, value):
-            self.number.type(value)
+    @allure.step("fill_number")
+    def fill_number(self, value):
+        self.number.type(value)
 
-        def fill_date(self):
-            self.date_of_birth_input.click()
-            self.year_drop_down.click()
-            self.year.click()
+    @allure.step("fill_date")
+    def fill_date(self):
+        self.date_of_birth_input.click()
+        self.year_drop_down.click()
+        self.year.click()
 
-            self.month_drop_down.click()
+        self.month_drop_down.click()
 
-            self.month.click()
-            self.day.click()
+        self.month.click()
+        self.day.click()
 
-        def fill_subjects(self, value):
-            self.subjects_input.type(value).press_enter()
+    @allure.step("fill_subjects")
+    def fill_subjects(self, value):
+        self.subjects_input.type(value).press_enter()
 
-        def fill_hobbies(self):
-            self.hobbies.perform(command.js.scroll_into_view).click()
+    @allure.step("fill_hobbies")
+    def fill_hobbies(self):
+        self.hobbies.perform(command.js.scroll_into_view).click()
 
-        def upload_photo(self, value):
-            self.upload.set_value(resources.path(value))
+    @allure.step("upload_photo")
+    def upload_photo(self, value):
+        self.upload.set_value(resources.path(value))
 
-        def current_address(self, value):
-            self.address.type(value)
+    @allure.step("current_address")
+    def current_address(self, value):
+        self.address.type(value)
 
-        def fill_state(self, value):
-            self.state.type(value).press_enter()
+    @allure.step("fill_state")
+    def fill_state(self, value):
+        self.state.type(value).press_enter()
 
-        def fill_city(self, value):
-            self.city.type(value).press_enter()
+    @allure.step("fill_city")
+    def fill_city(self, value):
+        self.city.type(value).press_enter()
 
-        def button_submit(self):
-            self.submit.press_enter()
+    @allure.step("button_submit")
+    def button_submit(self):
+        self.submit.press_enter()
 
-    with allure.step("Check form results"):
-        def register(self, user):
-            self.fill_first_name(user.first_name)
-            self.fill_last_name(user.last_name)
+    def register(self, user):
+        self.fill_first_name(user.first_name)
+        self.fill_last_name(user.last_name)
 
-            self.fill_email(user.email)
+        self.fill_email(user.email)
 
-            self.fill_gender()
-            self.fill_number(user.number)
-            self.fill_date()
-            self.fill_subjects(user.subjects)
-            self.fill_hobbies()
-            self.upload_photo(user.photo)
-            self.current_address(user.current_address)
-            self.fill_state(user.state)
-            self.fill_city(user.city)
+        self.fill_gender()
+        self.fill_number(user.number)
+        self.fill_date()
+        self.fill_subjects(user.subjects)
+        self.fill_hobbies()
+        self.upload_photo(user.photo)
+        self.current_address(user.current_address)
+        self.fill_state(user.state)
+        self.fill_city(user.city)
 
-            self.button_submit()
+        self.button_submit()
 
-        def should_registered_user_with(self, user):
-            self.element.even.should(
-                have.texts(
-                    user.first_name,
-                    user.email,
-                    user.gender,
-                    user.number,
-                    user.date,
-                    user.subjects,
-                    user.hobbies,
-                    user.photo,
-                    user.current_address,
-                    user.city
-                )
+    @allure.step("Check form results")
+    def should_registered_user_with(self, user):
+        self.element.even.should(
+            have.texts(
+                user.first_name,
+                user.email,
+                user.gender,
+                user.number,
+                user.date,
+                user.subjects,
+                user.hobbies,
+                user.photo,
+                user.current_address,
+                user.city
             )
+        )
